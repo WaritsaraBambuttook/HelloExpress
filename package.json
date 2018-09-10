@@ -11,6 +11,7 @@
   "description": "",
   "dependencies": {
     "ejs": "^2.6.1",
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "pg-promise": "^8.4.6"
   }
 }
