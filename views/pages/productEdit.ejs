@@ -1,0 +1,29 @@
+<% include ../partials/header %>
+<!-- การทำ update data -->
+<form action="/products/update" method="POST">
+
+<div class="form-group">
+  <label for="">ID</label>
+  <input type="number"
+    class="form-control" value="<%=product.id %>" name="id" id="id" aria-describedby="helpId" placeholder="" >
+  <small id="helpId" class="form-text text-muted">Products ID</small>
+</div>
+
+<div class="form-group">
+  <label for="">Title</label>
+  <input type="text"
+    class="form-control" value="<%=product.title %>" name="title" id="title" aria-describedby="helpId" placeholder="">
+  <small id="helpId" class="form-text text-muted">Products Title</small>
+</div>
+
+<div class="form-group">
+    <label for="">Price</label>
+    <input type="number"
+      class="form-control" value="<%=product.price %>" name="price" id="price" aria-describedby="helpId" placeholder="">
+    <small id="helpId" class="form-text text-muted">Products Price</small>
+  </div>
+ิ
+<button type="submit" class="btn btn-primary">Save</button>
+
+</form>
+<% include ../partials/footer %>

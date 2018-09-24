@@ -3,8 +3,9 @@
 <table class="table">
     <thead>
         <tr>
-            <th></th>
-            <th></th>
+            <th>Pid</th>
+            <th>Title</th>
+            <th>Price</th>
             <th></th>
         </tr>
     </thead>
@@ -14,7 +15,9 @@
             <td scope="row"><%=product.id %></td>
             <td><%=product.title %></td>
             <td><%=product.price %></td>
-        </tr>
+            <td><a  class="btn btn-primary" href="/products/<%= product.id %>" role="button">Edit</a></td>
+            </tr>
+            
    <% }); %>
         
         
