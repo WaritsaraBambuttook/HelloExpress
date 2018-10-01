@@ -1,7 +1,8 @@
 //PG-Database
 var express = require('express');
 var pgp = require('pg-promise')();
-var db = pgp('postgres://nkwnjxuiidwrns:b72b4de42f726173c9acee8a85dd10ed1c8dc1a2ab7402a6feebbbccb8b14f85@ec2-54-163-245-44.compute-1.amazonaws.com:5432/d34ii1v5fr4h1e?ssl=true');
+//var db = pgp(process.env.DATABASE_URL);
+var db = pgp('postgres://futdeidgmwkfof:b0ff7cbc4d68c00baed469b499d82f550bca4995f018702c1c0f7abd185c8d17@ec2-54-83-27-165.compute-1.amazonaws.com:5432/d4j894b34cct4e?ssl=true');
 var app = express();
 //เอาข้อมูลที่รับมาจากอะไรก็ชั่ง แปลงให้เป็น json
 var bodyParser = require('body-parser');
