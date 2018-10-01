@@ -19,7 +19,6 @@ app.get('/about', function (req, res) {
     var bdate = "9/10/1997";
     res.render('pages/about', { fullname: name, hobbies: hobbies, bdate: bdate });
 });
-
 //PG database
 //display all products
 //การททำ Routing คือตรง /
