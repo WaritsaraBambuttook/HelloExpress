@@ -115,16 +115,14 @@ app.post('/products/update', function (req, res) {
     var sql = `update products set title =  ${title}, price = ${price} where id = ${id}`;
 
     //db.none เป็นการอัพเดสจริงในดาต้าเบส
-    
+
     console.log('Update : ' + sql);
     res.redirect('/products');
 
 
 });
-
-
-
-
-console.log('App is running at http://localhost:3000/');
-
-app.listen(3000);
+//ถ้าแอพนี้รันที่ heroku ให้ใช้ตัวนี้ แต่ถ้าไม่ ให้ใช่ port 8080
+var port = process.env.PORT || 8080;
+app.listen(port, function () {
+    console.log('App is running on http://localhost:' + port);
+});
