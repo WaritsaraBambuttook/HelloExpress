@@ -122,6 +122,23 @@ app.post('/products/update', function (req, res) {
 
 
 });
+app.get('/addnew', function (req , res) {
+    res.render('pages/productAddNew');
+});
+//add new product
+app.post('/products/addNewProduct', function (req, res) {
+    //หลัง .body. คำนั้นมันมาจาก productAddNew.ejs ตรง id แต่ละตัว
+    var id = req.body.idProduct;
+    var title = req.body.titleProduct;
+    var price = req.body.priceProduct;
+    //กด alt 9 6 แล้วก็จะได้สัญญาลักษณ์มา
+    var sql = `insert into products (pid ,title,price) values (${id},${title},${price})`;
+
+    //db.none เป็นการอัพเดสจริงในดาต้าเบส
+
+    console.log('AddNewProducts : ' + sql);
+    res.redirect('/products');
+});
 //ถ้าแอพนี้รันที่ heroku ให้ใช้ตัวนี้ แต่ถ้าไม่ ให้ใช่ port 8080
 var port = process.env.PORT || 8080;
 app.listen(port, function () {
