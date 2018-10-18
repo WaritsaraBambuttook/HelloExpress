@@ -83,14 +83,14 @@ app.get('/users/:id', function (req, res) {
 //เรียก products แค่ตัวเดียวเวลา edit
 app.get('/products/:pid', function (req, res) {
     var pid = req.params.pid;
-    var sql = 'select * from products where id =' + pid;
+      var sql = 'select * from products where id =' + pid;
     db.any(sql)
         .then(function (data) {
             res.render('pages/productEdit', { product: data[0] });
         })
         .catch(function (error) {
             console.log('Error :' + error);
-        })
+        })      
 });
 //การ  update data of Products
 app.post('/products/update', function (req, res) {
@@ -100,8 +100,8 @@ app.post('/products/update', function (req, res) {
     var price = req.body.price;
     //กด alt 9 6 แล้วก็จะได้สัญญาลักษณ์มา
     var sql = `update products set title =  ${title}, price = ${price} where id = ${id}`;
-
-    //db.none เป็นการอัพเดสจริงในดาต้าเบส
+//เป็นการอัพเดสจริงในดาต้าเบส
+    db.none;
 
     console.log('Update : ' + sql);
     res.redirect('/products');
@@ -118,7 +118,7 @@ app.post('/products/addNewProduct', function (req, res) {
     //กด alt 9 6 แล้วก็จะได้สัญญาลักษณ์มา
     var sql = `insert into products (pid ,title,price) values (${id},${title},${price})`;
 
-    //db.none เป็นการอัพเดสจริงในดาต้าเบส
+    
 
     console.log('AddNewProducts : ' + sql);
     res.redirect('/products');
