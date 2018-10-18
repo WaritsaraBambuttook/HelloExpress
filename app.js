@@ -28,7 +28,6 @@ app.get('/products', function (req, res) {
     var sql = 'select * from products';
     if (id) {
         sql += ' where id = ' + id;
-
         //code เถื่อน
         /*db.any('select * from products where id='+ id)
         .then(function(data){
@@ -37,12 +36,10 @@ app.get('/products', function (req, res) {
         .catch(function(error){
             console.log('Error :'+error);
         })*/
-
     } else {
         //folder + file
         //res.download('staticWeb/index.html');
         //res.redirect('/about');
-
         //Database
         db.any('select * from products', )
             .then(function (data) {
@@ -52,14 +49,11 @@ app.get('/products', function (req, res) {
                 console.log('Error :' + error);
             })
     }
-
 });
-
 app.get('/users', function (req, res) {
     //folder + file
     //res.download('staticWeb/index.html');
     //res.redirect('/about');
-
     //Database
     //แสดงข้อมูลในdatabaseออกมา
     db.any('select * from users', )
@@ -69,9 +63,7 @@ app.get('/users', function (req, res) {
         .catch(function (error) {
             console.log('Error :' + error);
         })
-
 });
-
 //การแสดงข้อมูลแบบทั้งหมดกับแบบตาม id 
 app.get('/users/:id', function (req, res) {
     var id = req.params.id;
@@ -79,7 +71,6 @@ app.get('/users/:id', function (req, res) {
     if (id) {
         sql += ' where id = ' + id;
     }
-
     db.any(sql)
         .then(function (data) {
             res.render('pages/users', { users: data });
@@ -87,14 +78,12 @@ app.get('/users/:id', function (req, res) {
         .catch(function (error) {
             console.log('Error :' + error);
         })
-
 });
 
 //เรียก products แค่ตัวเดียวเวลา edit
 app.get('/products/:pid', function (req, res) {
     var pid = req.params.pid;
     var sql = 'select * from products where id =' + pid;
-
     db.any(sql)
         .then(function (data) {
             res.render('pages/productEdit', { product: data[0] });
@@ -102,10 +91,7 @@ app.get('/products/:pid', function (req, res) {
         .catch(function (error) {
             console.log('Error :' + error);
         })
-
-
 });
-
 //การ  update data of Products
 app.post('/products/update', function (req, res) {
     //หลัง .body. คำนั้นมันมาจาก productEdit.ejs ตรง id แต่ละตัว
@@ -119,8 +105,6 @@ app.post('/products/update', function (req, res) {
 
     console.log('Update : ' + sql);
     res.redirect('/products');
-
-
 });
 app.get('/addnew', function (req , res) {
     res.render('pages/productAddNew');
