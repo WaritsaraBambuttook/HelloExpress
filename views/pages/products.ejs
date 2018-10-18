@@ -1,11 +1,17 @@
 <% include ../partials/header %>
+<script>
+    function myFunction() {
+        alert("Are you sure to delete this Product");
+    }
+    </script>
+
 <table class="table">
     <thead>
         <tr>
             <th>Pid</th>
             <th>Title</th>
             <th>Price</th>
-            <th><a  class="btn btn-primary" href="/addnew" role="button">Add new Product</a></th>     
+            <th><a  class="btn btn-success" href="/addnew" role="button">Add new Product</a></th>     
         </tr>
     </thead>
     <tbody>
@@ -14,9 +20,8 @@
             <td scope="row"><%=product.id %></td>
             <td><%=product.title %></td>
             <td><%=product.price %></td>
-            <td><a  class="btn btn-primary" href="/products/<%= product.id %>" role="button">Edit</a></td>
-            </tr>
-            
+            <td><a  class="btn btn-primary" href="/products/<%= product.id %>" role="button">Edit</a>    <a  class="btn btn-danger" href="/products/delete/<%= product.id %>" onclick="myFunction()" role="button">Delete</a></td>
+            </tr>           
    <% }); %>   
     </tbody>
 </table>

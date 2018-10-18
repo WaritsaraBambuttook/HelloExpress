@@ -8,7 +8,6 @@ var app = express();
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 //app.use(express.static('staticWeb'));
 app.set('view engine', 'ejs');
 app.get('/', function (req, res) {
@@ -25,9 +24,9 @@ app.get('/about', function (req, res) {
 //การททำ Routing คือตรง /
 app.get('/products', function (req, res) {
     var id = req.param('id');
-    var sql = 'select * from products';
+    var sql = 'select * from products ';
     if (id) {
-        sql += ' where id = ' + id;
+        sql += ' where id = ' + id + 'order by id ASC';
         //code เถื่อน
         /*db.any('select * from products where id='+ id)
         .then(function(data){
@@ -41,7 +40,7 @@ app.get('/products', function (req, res) {
         //res.download('staticWeb/index.html');
         //res.redirect('/about');
         //Database
-        db.any('select * from products', )
+        db.any('select * from products order by id ASC', )
             .then(function (data) {
                 res.render('pages/products', { products: data });
             })
@@ -79,18 +78,17 @@ app.get('/users/:id', function (req, res) {
             console.log('Error :' + error);
         })
 });
-
 //เรียก products แค่ตัวเดียวเวลา edit
 app.get('/products/:pid', function (req, res) {
     var pid = req.params.pid;
-      var sql = 'select * from products where id =' + pid;
+    var sql = 'select * from products where id =' + pid;
     db.any(sql)
         .then(function (data) {
             res.render('pages/productEdit', { product: data[0] });
         })
         .catch(function (error) {
             console.log('Error :' + error);
-        })      
+        })
 });
 //การ  update data of Products
 app.post('/products/update', function (req, res) {
@@ -99,14 +97,13 @@ app.post('/products/update', function (req, res) {
     var title = req.body.title;
     var price = req.body.price;
     //กด alt 9 6 แล้วก็จะได้สัญญาลักษณ์มา
-    var sql = `update products set title =  ${title}, price = ${price} where id = ${id}`;
-//เป็นการอัพเดสจริงในดาต้าเบส
-    db.none;
-
+    var sql = `update products set title = '${title}', price = '${price}' where id = '${id}' `;
+    //เป็นการอัพเดสจริงในดาต้าเบส
+    db.none(sql)
     console.log('Update : ' + sql);
     res.redirect('/products');
 });
-app.get('/addnew', function (req , res) {
+app.get('/addnew', function (req, res) {
     res.render('pages/productAddNew');
 });
 //add new product
@@ -116,13 +113,19 @@ app.post('/products/addNewProduct', function (req, res) {
     var title = req.body.titleProduct;
     var price = req.body.priceProduct;
     //กด alt 9 6 แล้วก็จะได้สัญญาลักษณ์มา
-    var sql = `insert into products (pid ,title,price) values (${id},${title},${price})`;
-
-    
-
+    var sql = `insert into products (id,title,price) values ('${id}','${title}','${price}')`;
+    db.none(sql)
     console.log('AddNewProducts : ' + sql);
     res.redirect('/products');
 });
+app.get('/products/delete/:pid', function (req, res) {
+    var pid = req.params.pid;
+    var sql = `DELETE FROM products WHERE id ='${pid}'`;
+    db.none(sql);
+    console.log("delete :" + sql);
+    res.redirect('/products');
+});
+
 //ถ้าแอพนี้รันที่ heroku ให้ใช้ตัวนี้ แต่ถ้าไม่ ให้ใช่ port 8080
 var port = process.env.PORT || 8080;
 app.listen(port, function () {
