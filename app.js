@@ -80,7 +80,12 @@ app.get('/users/:id', function (req, res) {
 });
 //เรียก products แค่ตัวเดียวเวลา edit
 app.get('/products/:pid', function (req, res) {
-    var pid = req.params.pid;
+    var pid = req.params.pid; 
+    console.log(pid);
+    if(pid == 'addnew'){
+        res.render('pages/productAddNew');
+        console.log("if");
+    }else{
     var sql = 'select * from products where id =' + pid;
     db.any(sql)
         .then(function (data) {
@@ -89,6 +94,8 @@ app.get('/products/:pid', function (req, res) {
         .catch(function (error) {
             console.log('Error :' + error);
         })
+        console.log("else"); 
+    }  
 });
 //การ  update data of Products
 app.post('/products/update', function (req, res) {
@@ -99,12 +106,9 @@ app.post('/products/update', function (req, res) {
     //กด alt 9 6 แล้วก็จะได้สัญญาลักษณ์มา
     var sql = `update products set title = '${title}', price = '${price}' where id = '${id}' `;
     //เป็นการอัพเดสจริงในดาต้าเบส
-    db.none(sql)
+    db.none(sql);
     console.log('Update : ' + sql);
     res.redirect('/products');
-});
-app.get('/addnew', function (req, res) {
-    res.render('pages/productAddNew');
 });
 //add new product
 app.post('/products/addNewProduct', function (req, res) {
@@ -125,6 +129,8 @@ app.get('/products/delete/:pid', function (req, res) {
     console.log("delete :" + sql);
     res.redirect('/products');
 });
+
+
 
 //ถ้าแอพนี้รันที่ heroku ให้ใช้ตัวนี้ แต่ถ้าไม่ ให้ใช่ port 8080
 var port = process.env.PORT || 8080;
