@@ -66,21 +66,21 @@ app.get('/users', function (req, res) {
 //การแสดงข้อมูลแบบทั้งหมดกับแบบตาม id 
 app.get('/users/:id', function (req, res) {
     var id = req.params.id;
-    
+
     if (id == 'addnewUser') {
         res.render('pages/AddNewUser');
         console.log("if");
-    }else{
+    } else {
         var sql = 'select * from users where id =' + id;
-    db.any(sql)
-        .then(function (data) {
-            res.render('pages/UserEdit', { user: data[0]});
-        })
-        .catch(function (error) {
-            console.log('Error :' + error);
-        })
+        db.any(sql)
+            .then(function (data) {
+                res.render('pages/UserEdit', { user: data[0] });
+            })
+            .catch(function (error) {
+                console.log('Error :' + error);
+            })
         console.log("else");
-        
+
     }
 });
 app.post('/users/addnew_user', function (req, res) {
@@ -116,22 +116,22 @@ app.get('/users/delete/:pid', function (req, res) {
 });
 //เรียก products แค่ตัวเดียวเวลา edit
 app.get('/products/:pid', function (req, res) {
-    var pid = req.params.pid; 
+    var pid = req.params.pid;
     console.log(pid);
-    if(pid == 'addnew'){
+    if (pid == 'addnew') {
         res.render('pages/productAddNew');
         console.log("if");
-    }else{
-    var sql = 'select * from products where id =' + pid;
-    db.any(sql)
-        .then(function (data) {
-            res.render('pages/productEdit', { product: data[0] });
-        })
-        .catch(function (error) {
-            console.log('Error :' + error);
-        })
-        console.log("else"); 
-    }  
+    } else {
+        var sql = 'select * from products where id =' + pid;
+        db.any(sql)
+            .then(function (data) {
+                res.render('pages/productEdit', { product: data[0] });
+            })
+            .catch(function (error) {
+                console.log('Error :' + error);
+            })
+        console.log("else");
+    }
 });
 //การ  update data of Products
 app.post('/products/update', function (req, res) {
@@ -166,17 +166,18 @@ app.get('/products/delete/:pid', function (req, res) {
     res.redirect('/products');
 });
 
-app.get('/usersreport',function(req,res){
+app.get('/usersreport', function (req, res) {
 
-    db.any('select * from users order by id ASC', )
-    .then(function (data) {
-        res.render('pages/users_report', { users: data });
-    })
-    .catch(function (error) {
-        console.log('Error :' + error);
-    })
+    db.any('select p.name, u.email , sum(price)  from users u inner join purchases p on u.id = p.user_id inner join purchase_items pi on p.id = pi.purchase_id group by p.name ,u.email having sum(price) > 500 order by sum(price) DESC', )
+        .then(function (data) {
+            console.log(data)
+            res.render('pages/users_report', { data: data });
+        })
+        .catch(function (error) {
+            console.log('Error :' + error);
+        })
 });
-app.get('/products/report',function(req,res){});
+app.get('/productsreport', function (req, res) { });
 //ถ้าแอพนี้รันที่ heroku ให้ใช้ตัวนี้ แต่ถ้าไม่ ให้ใช่ port 8080
 var port = process.env.PORT || 8080;
 app.listen(port, function () {
