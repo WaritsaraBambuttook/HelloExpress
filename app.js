@@ -177,7 +177,16 @@ app.get('/usersreport', function (req, res) {
             console.log('Error :' + error);
         })
 });
-app.get('/productsreport', function (req, res) { });
+app.get('/productsreport', function (req, res) { 
+    db.any('select product.title, sum(product.price) from products product inner join purchase_items pi on product.id = pi.product_id group by product.title order by sum(product.price) DESC',)
+    .then(function (data) {
+        console.log(data)
+        res.render('pages/product_report', { data: data });
+    })
+    .catch(function (error) {
+        console.log('Error :' + error);
+    })
+});
 //ถ้าแอพนี้รันที่ heroku ให้ใช้ตัวนี้ แต่ถ้าไม่ ให้ใช่ port 8080
 var port = process.env.PORT || 8080;
 app.listen(port, function () {

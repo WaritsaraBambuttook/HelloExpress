@@ -1,0 +1,21 @@
+<% include ../partials/header %>
+<div class="col" style="text-align: center;">
+    <h1>ราคารวมการสั่งซื้อสินค้าแต่ละประเภท</h1>
+</div>
+    <table class="table table-striped" id="UsersTB">
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% data.forEach(function(data){ %>
+                <tr>
+                    <td scope="row"> <%=data.title %></td>
+                    <td><%=data.sum %></td>
+                </tr>
+                <% }); %>
+        </tbody>
+    </table>
+    <% include ../partials/footer %>
