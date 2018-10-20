@@ -1,23 +1,67 @@
 <% include ../partials/header %>
+    <script>
+        function myFunction() {
+            alert("Are you sure to delete this User");
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#search').on('keyup', function () {
+                var searchUser = $(this).val().toLowerCase();
+                //each วิ่งไปหาทุกๆตัวในตาราง ใน tbody ใน tr
+                $('#UsersTB tbody tr').each(function(){
+                    var lineStr = $(this).text().toLowerCase();
+                    if (lineStr.indexOf(searchUser) === -1) {
+                        $(this).hide();
+                    } else {
+                        $(this).show();
+                    }
+                });
+            });
+        });
+    </script>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Email</th>
-            <th>Password</th>
-        </tr>
-    </thead>
-    <tbody>
-    <% users.forEach(function(user){ %>
+    <div class="col 12" style="text-align: center;">
+        <h1>USERS</h1>
+    </div>
+    <br>
+    <br>
+    <div class="col 12">
+        <h4>Search</h4>
+    </div>
+
+    <div class="form-group ">
+        <input type="text" class="search form-control" id="search" placeholder="search for Users" style="width: 100%; ">
+    </div>
+    <table class="table table-striped" id="UsersTB">
+        <thead>
             <tr>
-            <td scope="row"><%=user.id %></td>
-            <td><%=user.email %></td>
-            <td><%=user.password %></td>
-        </tr>
-   <% }); %>
-        
-        
-    </tbody>
-</table>
-<% include ../partials/footer %>
+                <th>ID</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>
+                    <a class="btn btn-success" href="/users/addnewUser" role="button">Add new Product</a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <% users.forEach(function(user){ %>
+                <tr>
+                    <td scope="row">
+                        <%=user.id %>
+                    </td>
+                    <td>
+                        <%=user.email %>
+                    </td>
+                    <td>
+                        <%=user.password %>
+                    </td>
+                    <td>
+                        <a class="btn btn-primary" href="/users/<%=user.id %>" role="button">Edit</a>
+                        <a class="btn btn-danger" href="/users/delete/<%=user.id %>" onclick="myFunction()" role="button">Delete</a>
+                    </td>
+                </tr>
+                <% }); %>
+        </tbody>
+    </table>
+    <% include ../partials/footer %>

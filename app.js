@@ -66,17 +66,53 @@ app.get('/users', function (req, res) {
 //การแสดงข้อมูลแบบทั้งหมดกับแบบตาม id 
 app.get('/users/:id', function (req, res) {
     var id = req.params.id;
-    var sql = 'select * from users';
-    if (id) {
-        sql += ' where id = ' + id;
-    }
+    
+    if (id == 'addnewUser') {
+        res.render('pages/AddNewUser');
+        console.log("if");
+    }else{
+        var sql = 'select * from users where id =' + id;
     db.any(sql)
         .then(function (data) {
-            res.render('pages/users', { users: data });
+            res.render('pages/UserEdit', { user: data[0]});
         })
         .catch(function (error) {
             console.log('Error :' + error);
         })
+        console.log("else");
+        
+    }
+});
+app.post('/users/addnew_user', function (req, res) {
+    //หลัง .body. คำนั้นมันมาจาก productAddNew.ejs ตรง id แต่ละตัว
+    var id = req.body.idUser;
+    var email = req.body.UserEmail;
+    var password = req.body.password;
+    //กด alt 9 6 แล้วก็จะได้สัญญาลักษณ์มา
+    var sql = `insert into users (id,email,password) values ('${id}','${email}','${password}')`;
+    db.none(sql)
+    console.log('AddNewUser : ' + sql);
+    res.redirect('/users');
+});
+app.post('/users/update', function (req, res) {
+    //หลัง .body. คำนั้นมันมาจาก productEdit.ejs ตรง id แต่ละตัว
+    var uid = req.body.uid;
+    var email = req.body.email;
+    var password = req.body.password;
+    //กด alt 9 6 แล้วก็จะได้สัญญาลักษณ์มา
+    var sql = `update users set email = '${email}', password = '${password}' where id = '${uid}' `;
+    //เป็นการอัพเดสจริงในดาต้าเบส
+    db.none(sql);
+    console.log('Update : ' + sql);
+    res.redirect('/users');
+});
+app.get('/users/delete/:pid', function (req, res) {
+    var id = req.params.pid;
+    var sql = `DELETE FROM users WHERE id ='${id}'`;
+    console.log(id);
+    db.none(sql);
+    console.log("delete :" + sql);
+    res.redirect('/users');
 });
 //เรียก products แค่ตัวเดียวเวลา edit
 app.get('/products/:pid', function (req, res) {
@@ -130,8 +166,17 @@ app.get('/products/delete/:pid', function (req, res) {
     res.redirect('/products');
 });
 
+app.get('/usersreport',function(req,res){
 
-
+    db.any('select * from users order by id ASC', )
+    .then(function (data) {
+        res.render('pages/users_report', { users: data });
+    })
+    .catch(function (error) {
+        console.log('Error :' + error);
+    })
+});
+app.get('/products/report',function(req,res){});
 //ถ้าแอพนี้รันที่ heroku ให้ใช้ตัวนี้ แต่ถ้าไม่ ให้ใช่ port 8080
 var port = process.env.PORT || 8080;
 app.listen(port, function () {

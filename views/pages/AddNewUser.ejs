@@ -1,0 +1,30 @@
+<% include ../partials/header %>
+<!-- การทำ update data -->
+<div class="col" style="text-align: center;">
+  <h1>ADD NEW USER</h1>
+</div>
+<br><br>
+<form action="/users/addnew_user" method="POST">
+<div class="form-group">
+  <label for="">ID</label>
+  <input type="number"
+    class="form-control"  name="idUser" id="idUser" aria-describedby="helpId" placeholder="" >
+  <small id="helpId" class="form-text text-muted">User ID</small>
+</div>
+<div class="form-group">
+  <label for="">Email</label>
+  <input type="text"
+    class="form-control"  name="UserEmail" id="UserEmail" aria-describedby="helpId" placeholder="">
+  <small id="helpId" class="form-text text-muted">User Email</small>
+</div>
+<div class="form-group">
+    <label for="">Password</label>
+    <input type="password"
+      class="form-control" name="password" id="password" aria-describedby="helpId" min="0" placeholder="">
+    <small id="helpId" class="form-text text-muted">Password</small>
+  </div>
+<button type="submit" class="btn btn-primary">Add New</button>
+&nbsp;&nbsp;
+<a href="/users">Cancel</a>
+</form>
+<% include ../partials/footer %>
