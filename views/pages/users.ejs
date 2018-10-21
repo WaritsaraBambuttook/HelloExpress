@@ -41,7 +41,7 @@
                 <th>Password</th>
                 <th>Time</th>
                 <th>
-                    <a class="btn btn-success" href="/users/addnewUser" role="button">Add new Product</a>
+                    <a class="btn btn-success" href="/users/addnewUser" role="button">Add new User</a>
                 </th>
             </tr>
         </thead>
@@ -58,6 +58,7 @@
                         <%=user.password %>
                     </td>
                     <td><%=user.created_at %></td>
+                    
                     <td>
                         <a class="btn btn-primary" href="/users/<%=user.id %>" role="button">Edit</a>
                         <a class="btn btn-danger" href="/users/delete/<%=user.id %>" onclick="myFunction()" role="button">Delete</a>

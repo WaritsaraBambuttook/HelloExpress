@@ -85,24 +85,23 @@ app.get('/users/:id', function (req, res) {
 });
 app.post('/users/addnew_user', function (req, res) {
     //หลัง .body. คำนั้นมันมาจาก productAddNew.ejs ตรง id แต่ละตัว
-    var id = req.body.idUser;
     var email = req.body.UserEmail;
     var password = req.body.password;
     var date = req.body.datetime;
+    console.log(date)
     //กด alt 9 6 แล้วก็จะได้สัญญาลักษณ์มา
-    var sql = `insert into users (id,email,password,created_at) values ('${id}','${email}','${password}','${date}')`;
+    var sql = `insert into users (email,password,created_at) values ('${email}','${password}','${date}')`;
     db.none(sql)
     console.log('AddNewUser : ' + sql);
     res.redirect('/users');
 });
 app.post('/users/update', function (req, res) {
     //หลัง .body. คำนั้นมันมาจาก productEdit.ejs ตรง id แต่ละตัว
-    var uid = req.body.uid;
+    var uid = req.body.id;
     var email = req.body.email;
     var password = req.body.password;
-    var date = req.body.datetime;
     //กด alt 9 6 แล้วก็จะได้สัญญาลักษณ์มา
-    var sql = `update users set email = '${email}', password = '${password}' , created_at = '${date}' where id = '${uid}' `;
+    var sql = `update users set email = '${email}', password = '${password}' where id = '${uid}' `;
     //เป็นการอัพเดสจริงในดาต้าเบส
     db.none(sql);
     console.log('Update : ' + sql);
@@ -141,9 +140,8 @@ app.post('/products/update', function (req, res) {
     var id = req.body.id;
     var title = req.body.title;
     var price = req.body.price;
-    var date = req.body.datetime;
     //กด alt 9 6 แล้วก็จะได้สัญญาลักษณ์มา
-    var sql = `update products set title = '${title}', price = '${price}' , created_at = '${date}' where id = '${id}' `;
+    var sql = `update products set title = '${title}', price = '${price}'  where id = '${id}' `;
     //เป็นการอัพเดสจริงในดาต้าเบส
     db.none(sql);
     console.log('Update : ' + sql);
@@ -152,12 +150,11 @@ app.post('/products/update', function (req, res) {
 //add new product
 app.post('/products/addNewProduct', function (req, res) {
     //หลัง .body. คำนั้นมันมาจาก productAddNew.ejs ตรง id แต่ละตัว
-    var id = req.body.idProduct;
     var title = req.body.titleProduct;
     var price = req.body.priceProduct;
     var date = req.body.datetime;
     //กด alt 9 6 แล้วก็จะได้สัญญาลักษณ์มา
-    var sql = `insert into products (id,title,price,created_at) values ('${id}','${title}','${price}','${date}')`;
+    var sql = `insert into products (title,price,created_at) values ('${title}','${price}','${date}')`;
     db.none(sql)
     console.log('AddNewProducts : ' + sql);
     res.redirect('/products');

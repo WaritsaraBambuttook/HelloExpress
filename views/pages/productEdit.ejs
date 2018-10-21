@@ -23,13 +23,8 @@
 
     <div class="form-group">
       <label for="">Date</label>
-      <input class="form-control" name="datetime" id="datepicker" value="<%=product.created_at%>">
+      <input class="form-control" name="datetime" id="datepicker" value="<%=product.created_at%>" disabled>
       <small id="helpId" class="form-text text-muted">Date time</small>
-      <script>
-        $('#datepicker').datepicker({
-          uiLibrary: 'bootstrap4'
-        });
-      </script>
     </div>
     <button type="submit" class="btn btn-primary">Save</button>
     &nbsp;&nbsp;

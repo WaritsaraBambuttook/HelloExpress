@@ -6,7 +6,7 @@
     <form action="/users/update" method="POST">
         <div class="form-group">
             <label for="">ID</label>
-            <input type="number" class="form-control" value="<%=user.id %>" name="uid" id="uid" aria-describedby="helpId" placeholder="">
+            <input type="number" class="form-control" value="<%=user.id %>" name="id" id="id" aria-describedby="helpId" placeholder="" >
             <small id="helpId" class="form-text text-muted">User ID</small>
           </div>
           <div class="form-group">
@@ -21,14 +21,8 @@
             <small id="helpId" class="form-text text-muted">Password</small>
           </div>
           <div class="form-group">
-              <label for="">Date</label>
-              <input class="form-control" name="datetime" id="datepicker" value="<%=user.created_at%>">
-              <small id="helpId" class="form-text text-muted">Date time</small>
-              <script>
-                $('#datepicker').datepicker({
-                  uiLibrary: 'bootstrap4'
-                });
-              </script>
+              <label for="" id="datelabel">Date</label>
+              <input class="form-control" name="datetime" id="datetime" value="<%=user.created_at %>" disabled>
             </div>
           <button type="submit" class="btn btn-primary">Save</button>
           &nbsp;&nbsp;
