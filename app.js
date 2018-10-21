@@ -88,8 +88,9 @@ app.post('/users/addnew_user', function (req, res) {
     var id = req.body.idUser;
     var email = req.body.UserEmail;
     var password = req.body.password;
+    var date = req.body.datetime;
     //กด alt 9 6 แล้วก็จะได้สัญญาลักษณ์มา
-    var sql = `insert into users (id,email,password) values ('${id}','${email}','${password}')`;
+    var sql = `insert into users (id,email,password,created_at) values ('${id}','${email}','${password}','${date}')`;
     db.none(sql)
     console.log('AddNewUser : ' + sql);
     res.redirect('/users');
@@ -99,8 +100,9 @@ app.post('/users/update', function (req, res) {
     var uid = req.body.uid;
     var email = req.body.email;
     var password = req.body.password;
+    var date = req.body.datetime;
     //กด alt 9 6 แล้วก็จะได้สัญญาลักษณ์มา
-    var sql = `update users set email = '${email}', password = '${password}' where id = '${uid}' `;
+    var sql = `update users set email = '${email}', password = '${password}' , created_at = '${date}' where id = '${uid}' `;
     //เป็นการอัพเดสจริงในดาต้าเบส
     db.none(sql);
     console.log('Update : ' + sql);

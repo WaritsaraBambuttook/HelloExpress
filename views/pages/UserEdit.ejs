@@ -20,6 +20,16 @@
               placeholder="">
             <small id="helpId" class="form-text text-muted">Password</small>
           </div>
+          <div class="form-group">
+              <label for="">Date</label>
+              <input class="form-control" name="datetime" id="datepicker" value="<%=user.created_at%>">
+              <small id="helpId" class="form-text text-muted">Date time</small>
+              <script>
+                $('#datepicker').datepicker({
+                  uiLibrary: 'bootstrap4'
+                });
+              </script>
+            </div>
           <button type="submit" class="btn btn-primary">Save</button>
           &nbsp;&nbsp;
           <a href="/users">Cancel</a>
