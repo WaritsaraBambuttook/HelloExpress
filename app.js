@@ -55,7 +55,7 @@ app.get('/users', function (req, res) {
     //res.redirect('/about');
     //Database
     //แสดงข้อมูลในdatabaseออกมา
-    db.any('select * from users', )
+    db.any('select * from users order by id ASC', )
         .then(function (data) {
             res.render('pages/users', { users: data });
         })
@@ -139,8 +139,10 @@ app.post('/products/update', function (req, res) {
     var id = req.body.id;
     var title = req.body.title;
     var price = req.body.price;
+    var date = req.body.datetime;
+    
     //กด alt 9 6 แล้วก็จะได้สัญญาลักษณ์มา
-    var sql = `update products set title = '${title}', price = '${price}' where id = '${id}' `;
+    var sql = `update products set title = '${title}', price = '${price}' , created_at = '${date}' where id = '${id}' `;
     //เป็นการอัพเดสจริงในดาต้าเบส
     db.none(sql);
     console.log('Update : ' + sql);
