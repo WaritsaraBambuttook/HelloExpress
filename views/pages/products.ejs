@@ -56,7 +56,9 @@
                     <td>
                         <%=product.price %>
                     </td>
-                    <td><%=product.created_at %></td>
+                    <td>
+                        <%=product.created_at %>
+                    </td>
                     <td>
                         <a class="btn btn-primary" href="/products/<%= product.id %>" role="button">Edit</a>
                         <a class="btn btn-danger" href="/products/delete/<%= product.id %>" onclick="myFunction()"
