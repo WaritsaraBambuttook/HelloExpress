@@ -1,9 +1,13 @@
 <% include ../partials/header %>
-<br><br>
-<div class="col" style="text-align: center;">
-    <h1>ยอดรวมการสั่งซื้อสินค้าของแต่ละ USER</h1>
-</div>
-<br><br>
+    <br>
+    <br>
+    <div class="col" style="text-align: center;">
+        <h1>ยอดรวมการสั่งซื้อสินค้าของแต่ละ USER</h1>
+    </div>
+    <br>
+    <button type="button " class="btn btn-success" onclick="printJS('UsersTB', 'html')">Print</button>
+    <br>
+    <br>
     <table class="table table-striped" id="UsersTB">
         <thead>
             <tr>
@@ -19,7 +23,7 @@
                         <%=data.name %>
                     </td>
                     <td>
-                         <%=data.email %>
+                        <%=data.email %>
                     </td>
                     <td>
                         <%=data.sum %>
