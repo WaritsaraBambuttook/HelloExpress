@@ -139,9 +139,9 @@ app.post('/products/update', function (req, res) {
     //หลัง .body. คำนั้นมันมาจาก productEdit.ejs ตรง id แต่ละตัว
     var id = req.body.id;
     var title = req.body.title;
-    var price = req.body.price;
+    var price = req.body.price;   
     //กด alt 9 6 แล้วก็จะได้สัญญาลักษณ์มา
-    var sql = `update products set title = '${title}', price = '${price}'  where id = '${id}' `;
+    var sql = `update products set title = '${title}', price = '${price}' where id = '${id}' `;
     //เป็นการอัพเดสจริงในดาต้าเบส
     db.none(sql);
     console.log('Update : ' + sql);
